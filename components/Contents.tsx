@@ -1,10 +1,10 @@
 import { Feed } from "https://deno.land/x/rss@0.5.8/mod.ts";
 import { FeedEntry } from "https://deno.land/x/rss@0.5.8/src/types/mod.ts";
 import { useState } from "https://esm.sh/preact@10.13.1/hooks";
-import { DOMParser } from "https://deno.land/x/deno_dom/deno-dom-wasm.ts";
+import { DOMParser } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts";
 import { Entry, ParsedDescription } from "../types/types.ts";
-import IconSend from "https://deno.land/x/tabler_icons_tsx@0.0.3/tsx/send.tsx";
-import { between } from "https://deno.land/x/tims/mod.ts";
+import { between } from "https://deno.land/x/tims@1.0.0/mod.ts";
+import CustomShare from "../islands/CustomShare.tsx";
 
 const asContentElement = (feed: Feed): Entry[] => {
   const site = feed.title.value;
@@ -70,7 +70,7 @@ export const Contents = (props: { originalList: Feed[] }) => {
                     </a>
                   </div>
                   <div className="entry-buttons">
-                    <IconSend size={18} />
+                    <CustomShare target={x.link} />
                   </div>
                 </div>
                 <div className="entry-info">
