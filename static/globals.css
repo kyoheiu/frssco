@@ -1,0 +1,104 @@
+body {
+    width: 90%;
+    max-width: 1080px;
+    margin: auto;
+    background-color: #86EFAC;
+    font-family: serif;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.wrapper {
+    display: flex;
+}
+
+@media screen and (max-width: 720px) {
+    .wrapper {
+        flex-direction: column;
+    }
+}
+
+main {
+    flex: 3;
+}
+
+aside {
+    flex: 1;
+    background-color: #fff;
+}
+
+header,
+main,
+aside {
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.side-list {
+    font-size: 0.9em;
+}
+
+.main-list {
+    margin-top: -10px;
+}
+
+.entry-block {
+    flex: 15;
+    margin: 0 auto 20px auto;
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.entry-wrapper {
+    display: flex;
+}
+
+.entry-title {
+    flex: 6;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    overflow: hidden;
+}
+
+.entry-buttons {
+    text-align: center;
+    flex: 1;
+}
+
+.entry-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8em;
+}
+
+.entry-divider {
+    color: #86EFAC;
+}
+
+.entry-description {
+    display: flex;
+}
+
+.entry-thumbnail {
+    flex: 1;
+    max-width: 28%;
+}
+
+.entry-text {
+    flex: 2;
+    font-size: 0.8em;
+    color: #333;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    overflow: hidden;
+    margin-left: 10px;
+}
