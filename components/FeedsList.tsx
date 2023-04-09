@@ -1,4 +1,5 @@
 import { Feed } from "https://deno.land/x/rss@0.5.8/mod.ts";
+import { FeedsState } from "../types/types.ts";
 
 const compareUpdated = (a: Feed, b: Feed): number => {
   const elementA = a.updateDate ?? "0";
@@ -13,15 +14,26 @@ const compareUpdated = (a: Feed, b: Feed): number => {
   }
 };
 
-export const FeedsList = (props: { originalList: Feed[] }) => {
-  const feedsList = props.originalList.sort(compareUpdated);
+export const FeedsList = (props: { data: FeedsState }) => {
+  const feedsList = props.data.feeds.sort(compareUpdated);
 
   return (
     <>
+      <form>
+        <input type="url" placeholder="Add feed" />
+      </form>
+      <div>
+        <a href="/">
+          ALL
+        </a>
+      </div>
       {feedsList.map((x: Feed) => {
+        const target = `/?url=${x.id}`;
+
         return (
           <div>
-            <a href={x.id} target="blank" rel="noopner noreferrer">
+            <a href={target}>
+              {props.data.filtered && <span>&#x25B8; &nbsp;</span>}
               {x.title.value}
             </a>
           </div>
