@@ -5,7 +5,7 @@ import { FeedList } from "../types/types.ts";
 import { parseFeed } from "https://deno.land/x/rss@0.5.8/src/deserializer.ts";
 import { FeedsList } from "../components/FeedsList.tsx";
 import { Contents } from "../components/Contents.tsx";
-import { Header } from "../components/Header.tsx";
+import Header from "../islands/Header.tsx";
 
 export const handler: Handlers<rss.Feed[]> = {
   async GET(_, ctx) {
@@ -33,9 +33,9 @@ export default function Top({ data }: PageProps<rss.Feed[] | null>) {
   } else {
     return (
       <>
-        <Header />
+        <Header originalList={data} />
         <div className="wrapper">
-          <aside>
+          <aside className="side-list">
             <FeedsList originalList={data} />
           </aside>
           <main>
