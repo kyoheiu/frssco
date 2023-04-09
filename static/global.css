@@ -1,0 +1,25 @@
+body {
+    width: 90%;
+    margin: auto;
+}
+
+.wrapper {
+    display: flex;
+}
+
+main {
+    flex: 3;
+}
+
+aside {
+    flex: 1;
+}
+
+ul li {
+    list-style-type: none;
+}
+
+.thumbnail {
+    width: 400px;
+    height: 200px;
+}
