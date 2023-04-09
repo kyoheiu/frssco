@@ -1,3 +1,10 @@
+import * as rss from "https://deno.land/x/rss@0.5.8/mod.ts";
+
+export interface FeedsState {
+    feeds: rss.Feed[],
+    filtered: boolean
+}
+
 export interface FeedList {
     feeds: string[]
 }
