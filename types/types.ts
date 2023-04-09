@@ -7,7 +7,7 @@ export interface ParsedDescription {
     text: string | undefined
 }
 
-export interface ContentElement {
+export interface Entry {
     feed: string,
     title: string | undefined,
     updated: Date | undefined,
