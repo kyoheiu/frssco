@@ -16,8 +16,23 @@ a {
 }
 
 @media screen and (max-width: 720px) {
-    .wrapper {
-        flex-direction: column;
+    aside {
+        display: none;
+    }
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.menu-button {
+    text-align: right;
+}
+
+@media screen and (min-width: 720px) {
+    .menu-button {
+        display: none;
     }
 }
 
