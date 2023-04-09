@@ -5,6 +5,7 @@ import { DOMParser } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts
 import { Entry, ParsedDescription } from "../types/types.ts";
 import { between } from "https://deno.land/x/tims@1.0.0/mod.ts";
 import CustomShare from "../islands/CustomShare.tsx";
+import CopyLink from "../islands/CopyLink.tsx";
 
 const asContentElement = (feed: Feed): Entry[] => {
   const site = feed.title.value;
@@ -70,7 +71,12 @@ export const Contents = (props: { originalList: Feed[] }) => {
                     </a>
                   </div>
                   <div className="entry-buttons">
-                    <CustomShare target={x.link} />
+                    <div>
+                      <CopyLink url={x.link} />
+                    </div>
+                    <div>
+                      <CustomShare target={x.link} />
+                    </div>
                   </div>
                 </div>
                 <div className="entry-info">
