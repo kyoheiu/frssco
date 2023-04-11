@@ -28,7 +28,7 @@ export const FeedsList = (props: { data: FeedsState }) => {
         </a>
       </div>
       {feedsList.map((x: Feed) => {
-        const target = `/?url=${x.id}`;
+        const target = `/?url=${x.id ?? ""}`;
 
         return (
           <div>
