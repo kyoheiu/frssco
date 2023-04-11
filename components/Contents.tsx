@@ -9,14 +9,20 @@ import CopyLink from "../islands/CopyLink.tsx";
 
 const asContentElement = (feed: Feed): Entry[] => {
   const site = feed.title.value;
-  return feed.entries.map((x: FeedEntry) => {
-    const desc = parseDescription(x.description!.value);
+  return feed.entries.filter((x: FeedEntry) =>
+    x.updated && Date.now() - x.updated.getTime() > 0
+  ).map((x: FeedEntry) => {
+    const desc = parseDescription(
+      x.description ? x.description.value : undefined,
+    );
+
+    const link = x.id.startsWith("http") ? x.id : x.links[0].href as string;
 
     return {
       feed: site!,
-      title: x.title?.value,
+      title: x.title ? x.title.value : "",
       updated: x.updated,
-      link: x.id!,
+      link: link,
       cover: desc.cover,
       text: desc.text,
     };
@@ -37,7 +43,10 @@ const compareUpdated = (a: Entry, b: Entry): number => {
 };
 
 const parseDescription = (html: string | undefined): ParsedDescription => {
-  const document = new DOMParser().parseFromString(html!, "text/html");
+  const document = new DOMParser().parseFromString(
+    html ? html : "",
+    "text/html",
+  );
   const cover = document?.querySelector("img")?.getAttribute("src");
   const a = document?.querySelector("a");
   a?.remove();
@@ -53,14 +62,17 @@ export const Contents = (props: { originalList: Feed[] }) => {
 
   const [list, setList] = useState(entries);
 
-  const diff = (now: number, updated: Date): string => {
+  const diff = (now: number, updated: Date | undefined): string => {
+    if (!updated) {
+      return "undefined";
+    }
     return between(now, updated).split(",")[0];
   };
 
   return (
     <>
       <div className="main-list">
-        {list.map((x: Entry) => {
+        {list.slice(0, 9).map((x: Entry) => {
           return (
             <>
               <div className="entry-block">
@@ -87,7 +99,7 @@ export const Contents = (props: { originalList: Feed[] }) => {
                     &nbsp; &nbsp;
                   </div>
                   <div>
-                    {diff(Date.now(), x.updated!)}
+                    {diff(Date.now(), x.updated)}
                   </div>
                 </div>
                 <hr className="entry-divider" />
