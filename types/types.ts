@@ -15,7 +15,12 @@ export interface Entry {
     siteurl: string,
     title: string,
     link: string,
-    updated: number,
+    date: Date,
     cover: string,
     text: string
+}
+
+export interface Site {
+    sitetitle: string,
+    siteurl: string
 }
