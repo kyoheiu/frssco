@@ -7,65 +7,10 @@ import { between } from "https://deno.land/x/tims@1.0.0/mod.ts";
 import CustomShare from "../islands/CustomShare.tsx";
 import CopyLink from "../islands/CopyLink.tsx";
 
-const asContentElement = (feed: Feed): Entry[] => {
-  const site = feed.title.value;
-  return feed.entries.filter((x: FeedEntry) =>
-    x.updated && Date.now() - x.updated.getTime() > 0
-  ).map((x: FeedEntry) => {
-    const desc = parseDescription(
-      x.description ? x.description.value : undefined,
-    );
+export const Contents = (props: { originalList: Entry[] }) => {
+  const list = props.originalList;
 
-    const link = x.id.startsWith("http") ? x.id : x.links[0].href as string;
-
-    return {
-      feed: site!,
-      title: x.title ? x.title.value : "",
-      updated: x.updated,
-      link: link,
-      cover: desc.cover,
-      text: desc.text,
-    };
-  });
-};
-
-const compareUpdated = (a: Entry, b: Entry): number => {
-  const elementA = a.updated ?? "0";
-  const elementB = b.updated ?? "0";
-
-  if (elementA > elementB) {
-    return -1;
-  } else if (elementB > elementA) {
-    return 1;
-  } else {
-    return 0;
-  }
-};
-
-const parseDescription = (html: string | undefined): ParsedDescription => {
-  const document = new DOMParser().parseFromString(
-    html ? html : "",
-    "text/html",
-  );
-  const cover = document?.querySelector("img")?.getAttribute("src");
-  const a = document?.querySelector("a");
-  a?.remove();
-  const text = document?.textContent;
-  return { cover: cover, text: text };
-};
-
-export const Contents = (props: { originalList: Feed[] }) => {
-  const entries: Entry[] = props.originalList.map((x: Feed) => {
-    return asContentElement(x);
-  }).flat();
-  entries.sort(compareUpdated);
-
-  const [list, setList] = useState(entries);
-
-  const diff = (now: number, updated: Date | undefined): string => {
-    if (!updated) {
-      return "undefined";
-    }
+  const diff = (now: number, updated: number): string => {
     return between(now, updated).split(",")[0];
   };
 
@@ -93,7 +38,7 @@ export const Contents = (props: { originalList: Feed[] }) => {
                 </div>
                 <div className="entry-info">
                   <div>
-                    {x.feed}
+                    {x.sitetitle}
                   </div>
                   <div>
                     &nbsp; &nbsp;

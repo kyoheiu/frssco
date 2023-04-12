@@ -5,20 +5,17 @@ export interface FeedsState {
     filtered: boolean
 }
 
-export interface FeedList {
-    feeds: string[]
-}
-
 export interface ParsedDescription {
-    cover: string | null | undefined,
-    text: string | undefined
+    cover: string,
+    text: string
 }
 
 export interface Entry {
-    feed: string,
-    title: string | undefined,
-    updated: Date | undefined,
+    sitetitle: string,
+    siteurl: string,
+    title: string,
     link: string,
-    cover: string | null | undefined,
-    text: string | undefined
+    updated: number,
+    cover: string,
+    text: string
 }
