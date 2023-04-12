@@ -1,8 +1,12 @@
 import { Feed } from "https://deno.land/x/rss@0.5.8/mod.ts";
-import { Entry, FeedsState } from "../types/types.ts";
+import { Entry, Site } from "../types/types.ts";
 
 export const FeedsList = (props: { data: Entry[] }) => {
-  const list = props.data;
+  const list: Site[] = [
+    ...new Set(props.data.map((x: Entry) => {
+      return { sitetitle: x.sitetitle, siteurl: x.siteurl };
+    })),
+  ];
 
   return (
     <>
@@ -14,7 +18,7 @@ export const FeedsList = (props: { data: Entry[] }) => {
           ALL
         </a>
       </div>
-      {list.map((x: Entry) => {
+      {list.map((x: Site) => {
         const target = `/?url=${x.siteurl ?? ""}`;
 
         return (

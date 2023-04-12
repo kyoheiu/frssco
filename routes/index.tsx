@@ -8,22 +8,17 @@ import Header from "../islands/Header.tsx";
 import { Database } from "https://deno.land/x/sqlite3@0.9.1/mod.ts";
 
 const compareUpdated = (a: Entry, b: Entry): number => {
-  const elementA = a.updated;
-  const elementB = b.updated;
-
-  if (elementA > elementB) {
-    return -1;
-  } else if (elementB > elementA) {
+  if (b.date > a.date) {
     return 1;
   } else {
-    return 0;
+    return -1;
   }
 };
 
 export const handler: Handlers<Entry[]> = {
-  async GET(req, ctx) {
-    // const url = new URL(req.url);
-    // const q = url.searchParams.get("url");
+  GET(req, ctx) {
+    const url = new URL(req.url);
+    const q = url.searchParams.get("url");
 
     const db = new Database("test.db");
     const stored = db.prepare("SELECT * FROM feeds").all<
@@ -36,14 +31,14 @@ export const handler: Handlers<Entry[]> = {
 
     db.close();
 
-    // if (q) {
-    //   result = result.filter((x: rss.Feed) => x.id === q);
-    //   return ctx.render({ feeds: result, filtered: true });
-    // }
+    if (q) {
+      result = result.filter((x: Entry) => x.siteurl === q);
+      return ctx.render(result);
+    }
 
-    result = result.filter((x) => x.updated <= (Date.now() / 1000));
+    // result = result.filter((x) => x.updated <= (Date.now() / 1000));
     result.sort(compareUpdated);
-    console.log(result[0]);
+    console.log(result.slice(0, 20));
 
     return ctx.render(result);
   },

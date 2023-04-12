@@ -5,16 +5,13 @@ import { Entry, ParsedDescription } from "../../types/types.ts";
 import { FeedEntry } from "https://deno.land/x/rss@0.5.8/src/types/feed.ts";
 import { DOMParser } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts";
 
-const CREATE = "CREATE TABLE feeds (id integer not null, sitetitle TEXT not null, siteurl TEXT not null, title TEXT not null, link TEXT not null, updated INTEGER not null, cover TEXT not null, text TEXT not null)";
+const CREATE = "CREATE TABLE feeds (id integer not null, sitetitle TEXT not null, siteurl TEXT not null, title TEXT not null, link TEXT not null, date TEXT not null, cover TEXT not null, text TEXT not null)";
 
 const asContentElement = (feed: Feed): Entry[] => {
-  return feed.entries.filter((x: FeedEntry) =>
-    x.updated && Date.now() - x.updated.getTime() > 0
-  ).map((x: FeedEntry) => {
-    const desc = parseDescription(
-      x.description ? x.description.value : undefined,
-    );
-    const updated = x.updated ? x.updated.getTime() : 0;
+  return feed.entries.map((x: FeedEntry) => {
+    const updated = x.published ? x.published: (x.updated? x.updated: new Date());
+
+    const desc = parseDescription(x);
 
     const link = x.id ? (x.id.startsWith("http") ? x.id : x.links[0].href as string) : "";
 
@@ -23,25 +20,37 @@ const asContentElement = (feed: Feed): Entry[] => {
       siteurl: feed.id,
       title: x.title ? x.title.value ?? "" : "",
       link: link,
-      updated: updated,
+      date: updated,
       cover: desc.cover,
-      text: desc.text ?? "",
-    };
-  });
+      text: desc.text
+  };});
 };
 
-const parseDescription = (html: string | undefined): ParsedDescription => {
-  if (!html) {
+const parseDescription = (entry: FeedEntry): ParsedDescription => {
+  const desc = entry.description?.value;
+  const content = entry.content?.value;
+
+  if (!desc) {
     return {cover: "", text: ""};
   }
   const document = new DOMParser().parseFromString(
-    html,
+    desc,
     "text/html",
   );
-  const cover = document?.querySelector("img")?.getAttribute("src") ?? "";
-  const a = document?.querySelector("a");
-  a?.remove();
-  const text = document ? document.textContent : "";
+
+  if (!document) {
+    return {cover: "", text: ""};
+  }
+
+  let cover = document.querySelector("img")?.getAttribute("src") ?? "";
+  if (cover === "") {
+    const content_document = new DOMParser().parseFromString(content ?? "", "text/html");
+    if (content_document) {
+
+    cover = content_document.querySelector("img")?.getAttribute("src") ?? "";
+    }
+  }
+  const text = document.textContent;
   return { cover: cover, text: text };
 };
 
@@ -88,7 +97,7 @@ export const handler = async (_req: Request, _ctx: HandlerContext): Promise<Resp
         if (!e) {
           continue;
         } else {
-          db.exec("INSERT INTO feeds (id, sitetitle, siteurl, title, link, updated, cover, text) values(?, ?, ?, ?, ?, ?, ?, ?)", i, e.sitetitle, e.siteurl, e.title, e.link, e.updated, e.cover, e.text);
+          db.exec("INSERT INTO feeds (id, sitetitle, siteurl, title, link, date, cover, text) values(?, ?, ?, ?, ?, ?, ?, ?)", i, e.sitetitle, e.siteurl, e.title, e.link, e.date, e.cover, e.text);
         }
     }
 
