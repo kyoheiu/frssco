@@ -101,6 +101,7 @@ aside {
 }
 
 .entry-title {
+    font-weight: bolder;
     flex: 6;
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -139,7 +140,7 @@ aside {
 @media screen and (max-width: 800px) {
     .entry-thumbnail {
         width: 25%;
-        height: 12.5%;
+        max-height: 12.5%;
     }
 }
 
