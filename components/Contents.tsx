@@ -46,7 +46,10 @@ export const Contents = (props: { originalList: Entry[] }) => {
                 <hr className="entry-divider" />
                 <div className="entry-description">
                   <div className="entry-thumbnail">
-                    <img className="thumbnail" src={x.cover} />
+                    <img
+                      className="thumbnail"
+                      src={x.cover ? x.cover : "alt.png"}
+                    />
                   </div>
                   <div className="entry-text">
                     {x.text}
