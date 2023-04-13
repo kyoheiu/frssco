@@ -10,6 +10,12 @@ export const Contents = (props: { originalList: Entry[] }) => {
     return since(Date.parse(date.toString())).split(",")[0];
   };
 
+  const toUIntArray = (s: string): string => {
+    const encoder = new TextEncoder();
+    const encoded = encoder.encode(s);
+    return encoded.toString();
+  };
+
   return (
     <>
       <div className="main-list">
@@ -48,7 +54,11 @@ export const Contents = (props: { originalList: Entry[] }) => {
                   <div className="entry-thumbnail">
                     <img
                       className="thumbnail"
-                      src={x.cover ? x.cover : "alt.png"}
+                      src={x.cover
+                        ? x.cover
+                        : `https://picsum.photos/seed/${
+                          toUIntArray(x.title)
+                        }/200/100`}
                     />
                   </div>
                   <div className="entry-text">
