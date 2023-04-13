@@ -1,12 +1,12 @@
 import { Feed } from "https://deno.land/x/rss@0.5.8/mod.ts";
 import { Entry, Site } from "../types/types.ts";
+import xmlEntities from "https://deno.land/x/html_entities@v1.0/lib/xml-entities.js";
 
 export const FeedsList = (props: { data: Entry[] }) => {
-  const list: Site[] = [
-    ...new Set(props.data.map((x: Entry) => {
-      return { sitetitle: x.sitetitle, siteurl: x.siteurl };
-    })),
-  ];
+  const sites: Map<string, string> = new Map();
+  props.data.forEach((entry: Entry) => {
+    sites.set(entry.sitetitle, entry.siteurl);
+  });
 
   return (
     <>
@@ -18,13 +18,13 @@ export const FeedsList = (props: { data: Entry[] }) => {
           ALL
         </a>
       </div>
-      {list.map((x: Site) => {
-        const target = `/?url=${x.siteurl ?? ""}`;
+      {[...sites].map((kv) => {
+        const target = `/?url=${kv[1] ?? ""}`;
 
         return (
-          <div>
+          <div className="feed-title">
             <a href={target}>
-              {x.sitetitle}
+              {kv[0]}
             </a>
           </div>
         );
