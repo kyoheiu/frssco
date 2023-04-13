@@ -6,7 +6,7 @@ export interface FeedsState {
 }
 
 export interface ParsedDescription {
-    cover: string,
+    cover: string | null,
     text: string
 }
 
@@ -16,11 +16,17 @@ export interface Entry {
     title: string,
     link: string,
     date: Date,
-    cover: string,
+    cover: string | null,
     text: string
 }
 
 export interface Site {
     sitetitle: string,
     siteurl: string
+}
+
+export enum Feedback {
+    Init,
+    Loading,
+    Error,
 }

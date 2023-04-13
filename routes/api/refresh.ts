@@ -4,13 +4,13 @@ import { Feed, parseFeed } from "https://deno.land/x/rss@0.5.8/mod.ts";
 import { Entry, ParsedDescription } from "../../types/types.ts";
 import { FeedEntry } from "https://deno.land/x/rss@0.5.8/src/types/feed.ts";
 import { DOMParser } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts";
+import { Html5Entities } from "https://deno.land/x/html_entities@v1.0/mod.js";
 
-const CREATE = "CREATE TABLE feeds (id integer not null, sitetitle TEXT not null, siteurl TEXT not null, title TEXT not null, link TEXT not null, date TEXT not null, cover TEXT not null, text TEXT not null)";
+const CREATE = "CREATE TABLE feeds (id integer not null, sitetitle TEXT not null, siteurl TEXT not null, title TEXT not null, link TEXT not null, date TEXT not null, cover TEXT, text TEXT not null)";
 
 const asContentElement = (feed: Feed): Entry[] => {
   return feed.entries.map((x: FeedEntry) => {
-    const updated = x.published ? x.published: (x.updated? x.updated: new Date());
-
+    const updated = x.published ? x.published: (x.updated? x.updated: new Date("1900"));
     const desc = parseDescription(x);
 
     const link = x.id ? (x.id.startsWith("http") ? x.id : x.links[0].href as string) : "";
@@ -27,7 +27,7 @@ const asContentElement = (feed: Feed): Entry[] => {
 };
 
 const parseDescription = (entry: FeedEntry): ParsedDescription => {
-  const desc = entry.description?.value;
+  const desc = Html5Entities.decode(entry.description?.value ?? "");
   const content = entry.content?.value;
 
   if (!desc) {
@@ -42,12 +42,11 @@ const parseDescription = (entry: FeedEntry): ParsedDescription => {
     return {cover: "", text: ""};
   }
 
-  let cover = document.querySelector("img")?.getAttribute("src") ?? "";
+  let cover: string | null = document.querySelector("img")?.getAttribute("src") ?? "";
   if (cover === "") {
     const content_document = new DOMParser().parseFromString(content ?? "", "text/html");
     if (content_document) {
-
-    cover = content_document.querySelector("img")?.getAttribute("src") ?? "";
+    cover = content_document.querySelector("img")?.getAttribute("src") ?? null;
     }
   }
   const text = document.textContent;
@@ -90,7 +89,7 @@ export const handler = async (_req: Request, _ctx: HandlerContext): Promise<Resp
         x.status === "fulfilled"
       ) as PromiseFulfilledResult<Feed>[]).map((x) => x.value);
 
-    const entryList = result.map((x: Feed) => {return asContentElement(x)}).flat();
+    const entryList = result.map((x: Feed) => {return asContentElement(x)}).flat().filter((x: Entry) => !(x.date > new Date()));
 
     for (let i = 1; i < entryList.length; i++) {
       const e =entryList[i];
