@@ -19,6 +19,7 @@ export default function Header(props: { data: Entry[] }) {
       setLoading(() => Feedback.Error);
     } else {
       setLoading(() => Feedback.Init);
+      globalThis.location.reload();
     }
   };
 
@@ -43,12 +44,12 @@ export default function Header(props: { data: Entry[] }) {
         <a href="/">
           <IconRss />
         </a>
-        <div class="menu-button">
+        <div className="refresh-button">
           <button onClick={refresh}>
             <RefreshButton />
           </button>
         </div>
-        <div class="menu-button">
+        <div class={showMenu ? "close-button" : "menu-button"}>
           <button onClick={toggleMenu}>
             {showMenu ? <IconArrowBarToUp /> : <IconMenu2 />}
           </button>

@@ -10,25 +10,27 @@ export const FeedsList = (props: { data: Entry[] }) => {
 
   return (
     <>
-      <form>
-        <input type="url" placeholder="Add feed" />
-      </form>
-      <div>
-        <a href="/">
-          ALL
-        </a>
-      </div>
-      {[...sites].map((kv) => {
-        const target = `/?url=${kv[1] ?? ""}`;
+      <div className="side-list">
+        <form>
+          <input type="url" placeholder="Add feed" />
+        </form>
+        <div>
+          <a href="/">
+            ALL
+          </a>
+        </div>
+        {[...sites].map((kv) => {
+          const target = `/?url=${kv[1] ?? ""}`;
 
-        return (
-          <div className="feed-title">
-            <a href={target}>
-              {kv[0]}
-            </a>
-          </div>
-        );
-      })}
+          return (
+            <div className="feed-title">
+              <a href={target}>
+                {kv[0]}
+              </a>
+            </div>
+          );
+        })}
+      </div>
     </>
   );
 };
