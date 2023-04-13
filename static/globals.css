@@ -3,7 +3,13 @@ body {
     max-width: 900px;
     margin: auto;
     background-color: #86EFAC;
-    font-family: serif;
+    font-family: san-serif;
+}
+
+@media screen and (max-width: 800px) {
+    body {
+        width: 100%;
+    }
 }
 
 a {
@@ -27,7 +33,7 @@ input {
     display: flex;
 }
 
-@media screen and (max-width: 720px) {
+@media screen and (max-width: 800px) {
     aside {
         display: none;
     }
@@ -42,7 +48,7 @@ header {
     text-align: right;
 }
 
-@media screen and (min-width: 720px) {
+@media screen and (min-width: 800px) {
     .menu-button {
         display: none;
     }
@@ -70,12 +76,19 @@ aside {
     line-height: 2;
 }
 
+.feed-title {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
 .main-list {
     margin-top: -10px;
 }
 
 .entry-block {
-    flex: 15;
     margin: 0 auto 20px auto;
     background-color: #fff;
     padding: 15px;
@@ -117,9 +130,17 @@ aside {
 
 .entry-thumbnail {
     flex: 1;
-    max-width: 200px;
-    max-height: 120px;
+    width: 200px;
+    max-width: 25%;
+    height: 100px;
     overflow: hidden;
+}
+
+@media screen and (max-width: 800px) {
+    .entry-thumbnail {
+        width: 25%;
+        height: 12.5%;
+    }
 }
 
 .entry-thumbnail img {
@@ -131,11 +152,12 @@ aside {
 .entry-text {
     flex: 2;
     font-size: 0.8em;
+    height: 4em;
+    line-height: 1.3em;
     color: #333;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
-    line-clamp: 3;
     text-overflow: ellipsis;
     overflow: hidden;
     margin-left: 10px;
