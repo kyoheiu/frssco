@@ -27,7 +27,7 @@ export const handler: Handlers<Entry[]> = {
 
     let result: Entry[] = [];
 
-    stored.forEach((x) => result.push(x as Entry));
+    stored.forEach((x) => result.push(x as unknown as Entry));
 
     db.close();
 
@@ -36,9 +36,7 @@ export const handler: Handlers<Entry[]> = {
       return ctx.render(result);
     }
 
-    // result = result.filter((x) => x.updated <= (Date.now() / 1000));
     result.sort(compareUpdated);
-    console.log(result.slice(0, 20));
 
     return ctx.render(result);
   },
@@ -50,7 +48,7 @@ export default function Top({ data }: PageProps<Entry[] | null>) {
   } else {
     return (
       <>
-        {/* <Header data={data} /> */}
+        <Header data={data} />
         <div className="wrapper">
           <aside className="side-list">
             <FeedsList data={data} />
