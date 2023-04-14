@@ -35,7 +35,7 @@ export const Contents = (props: { originalList: Entry[] }) => {
                   <div>
                     &nbsp; &nbsp;
                   </div>
-                  <div>
+                  <div className="entry-updated">
                     {sinceCreated(x.date)}
                   </div>
                 </div>
