@@ -1,8 +1,7 @@
-import { Feed } from "https://deno.land/x/rss@0.5.8/mod.ts";
-import { Entry, Site } from "../types/types.ts";
-import xmlEntities from "https://deno.land/x/html_entities@v1.0/lib/xml-entities.js";
+import { Entry } from "../types/types.ts";
+import { useState } from "https://esm.sh/preact@10.13.1/hooks";
 
-export const FeedsList = (props: { data: Entry[] }) => {
+export default function FeedsList(props: { data: Entry[] }) {
   const sites: Map<string, string> = new Map();
   props.data.forEach((entry: Entry) => {
     sites.set(entry.sitetitle, entry.siteurl);
@@ -11,8 +10,12 @@ export const FeedsList = (props: { data: Entry[] }) => {
   return (
     <>
       <div className="side-list">
-        <form>
-          <input type="url" placeholder="Add feed" />
+        <form action="/api/append">
+          <input
+            type="url"
+            name="url"
+            placeholder="Add feed"
+          />
         </form>
         <div>
           <a href="/">
@@ -33,4 +36,4 @@ export const FeedsList = (props: { data: Entry[] }) => {
       </div>
     </>
   );
-};
+}
