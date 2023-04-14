@@ -5,7 +5,7 @@ export default function App({ Component }: AppProps) {
   return (
     <html data-custom="data">
       <Head>
-        <title>frssh</title>
+        <title>frssco</title>
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <link rel="stylesheet" href="globals.css" />
       </Head>
