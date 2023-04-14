@@ -1,10 +1,10 @@
 import { Database } from "https://deno.land/x/sqlite3@0.9.1/mod.ts";
-import { HandlerContext } from "$fresh/server.ts";
 import { Feed, parseFeed } from "https://deno.land/x/rss@0.5.8/mod.ts";
 import { Entry, ParsedDescription } from "../../types/types.ts";
 import { FeedEntry } from "https://deno.land/x/rss@0.5.8/src/types/feed.ts";
 import { DOMParser } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts";
 import { Html5Entities } from "https://deno.land/x/html_entities@v1.0/mod.js";
+import { Handlers } from "https://deno.land/x/fresh@1.1.5/server.ts";
 
 const CREATE = "CREATE TABLE feeds (id integer not null, sitetitle TEXT not null, siteurl TEXT not null, title TEXT not null, link TEXT not null, date TEXT not null, cover TEXT, text TEXT not null)";
 
@@ -53,7 +53,8 @@ const parseDescription = (entry: FeedEntry): ParsedDescription => {
   return { cover: cover, text: text };
 };
 
-export const handler = async (_req: Request, _ctx: HandlerContext): Promise<Response> => {
+export const handler: Handlers = {
+  async POST(_req, _ctx) {
     try {
       await Deno.remove("test.db");
     } catch (_err) {
@@ -106,4 +107,5 @@ export const handler = async (_req: Request, _ctx: HandlerContext): Promise<Resp
     return new Response("OK", {
       status: 200
     });
+  }
 };
