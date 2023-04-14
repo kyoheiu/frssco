@@ -19,24 +19,14 @@ export const Contents = (props: { originalList: Entry[] }) => {
   return (
     <>
       <div className="main-list">
-        {list.slice(0, 20).map((x: Entry) => {
+        {list.map((x: Entry) => {
           return (
             <>
               <div className="entry-block">
-                <div className="entry-wrapper">
-                  <div className="entry-title">
-                    <a href={x.link} target="blank" rel="noopner noreferrer">
-                      {x.title}
-                    </a>
-                  </div>
-                  <div className="entry-buttons">
-                    <div>
-                      <CopyLink url={x.link} />
-                    </div>
-                    <div>
-                      <CustomShare target={x.link} />
-                    </div>
-                  </div>
+                <div className="entry-title">
+                  <a href={x.link} target="blank" rel="noopner noreferrer">
+                    {x.title}
+                  </a>
                 </div>
                 <div className="entry-info">
                   <div>
@@ -53,17 +43,17 @@ export const Contents = (props: { originalList: Entry[] }) => {
                 <div className="entry-description">
                   <div className="entry-thumbnail">
                     <img
-                      className="thumbnail"
-                      src={x.cover
-                        ? x.cover
-                        : `https://picsum.photos/seed/${
-                          toUIntArray(x.title)
-                        }/200/100`}
+                      src={x.cover ? x.cover : "/alt.png"}
                     />
                   </div>
                   <div className="entry-text">
                     {x.text}
                   </div>
+                </div>
+                <div className="entry-buttons">
+                  <CopyLink url={x.link} />
+                  &nbsp;
+                  <CustomShare target={x.link} />
                 </div>
               </div>
             </>
