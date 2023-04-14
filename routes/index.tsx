@@ -1,8 +1,6 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
-import * as rss from "https://deno.land/x/rss@0.5.8/mod.ts";
-import { Entry, FeedsState } from "../types/types.ts";
-import { parseFeed } from "https://deno.land/x/rss@0.5.8/src/deserializer.ts";
-import { FeedsList } from "../components/FeedsList.tsx";
+import { Entry } from "../types/types.ts";
+import FeedsList from "../components/FeedsList.tsx";
 import { Contents } from "../components/Contents.tsx";
 import Header from "../islands/Header.tsx";
 import { Database } from "https://deno.land/x/sqlite3@0.9.1/mod.ts";
