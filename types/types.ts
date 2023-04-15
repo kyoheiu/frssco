@@ -1,5 +1,3 @@
-import * as rss from "https://deno.land/x/rss@0.5.8/mod.ts";
-
 export interface FeedsState {
     feeds: Entry[],
     filtered?: string
