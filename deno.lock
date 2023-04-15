@@ -343,6 +343,7 @@
     "https://deno.land/x/sqlite3@0.9.1/src/util.ts": "3892904eb057271d4072215c3e7ffe57a9e59e4df78ac575046eb278ca6239cd",
     "https://deno.land/x/tabler_icons_tsx@0.0.3/tsx/arrow-bar-to-up.tsx": "c8187e377279aa8f208c2f8ebb465ce5740b7a605f7dd529400f1cbd23716b7e",
     "https://deno.land/x/tabler_icons_tsx@0.0.3/tsx/link.tsx": "870de2e23c0434c950c6e76e726f226a7503a7bc86d97198a753391f7b5a504f",
+    "https://deno.land/x/tabler_icons_tsx@0.0.3/tsx/list.tsx": "bb40c9122cf0aca0da6de200c68c6d37530618943e8e7575ea1894349b8e4f7b",
     "https://deno.land/x/tabler_icons_tsx@0.0.3/tsx/menu-2.tsx": "ca776abcf5b3502d721d55f4f05798caa30984021022b451e8491b8ba84e27f4",
     "https://deno.land/x/tabler_icons_tsx@0.0.3/tsx/refresh-alert.tsx": "49b5cd414910c9d4276f261ba2fb082ed5511e81f01fe91fae7f0245eb12f72f",
     "https://deno.land/x/tabler_icons_tsx@0.0.3/tsx/refresh-dot.tsx": "7da8eca74d6642a1f0c6ea195886754a2f27432615c5a335d5458564c0a3f554",

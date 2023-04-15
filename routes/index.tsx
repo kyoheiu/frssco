@@ -1,9 +1,10 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
-import { Entry } from "../types/types.ts";
+import { Entry, FeedsState } from "../types/types.ts";
 import FeedsList from "../components/FeedsList.tsx";
 import { Contents } from "../components/Contents.tsx";
 import Header from "../islands/Header.tsx";
 import { Database } from "https://deno.land/x/sqlite3@0.9.1/mod.ts";
+import Menu from "../islands/Menu.tsx";
 
 const compareUpdated = (a: Entry, b: Entry): number => {
   if (b.date > a.date) {
@@ -13,7 +14,7 @@ const compareUpdated = (a: Entry, b: Entry): number => {
   }
 };
 
-export const handler: Handlers<Entry[]> = {
+export const handler: Handlers<FeedsState> = {
   GET(req, ctx) {
     const url = new URL(req.url);
     const q = url.searchParams.get("url");
@@ -23,36 +24,36 @@ export const handler: Handlers<Entry[]> = {
       Record<string, Entry>
     >();
 
-    let result: Entry[] = [];
+    const result: Entry[] = [];
 
     stored.forEach((x) => result.push(x as unknown as Entry));
 
     db.close();
 
-    if (q) {
-      result = result.filter((x: Entry) => x.siteurl === q);
-      return ctx.render(result);
-    }
-
     result.sort(compareUpdated);
 
-    return ctx.render(result);
+    if (q) {
+      return ctx.render({ feeds: result, filtered: q });
+    } else {
+      return ctx.render({ feeds: result });
+    }
   },
 };
 
-export default function Top({ data }: PageProps<Entry[] | null>) {
+export default function Top({ data }: PageProps<FeedsState | null>) {
   if (!data) {
     return <h1>Feeds not found.</h1>;
   } else {
     return (
       <>
-        <Header data={data} />
+        <Header />
+        <Menu data={data} />
         <div className="wrapper">
           <aside className="side-list">
             <FeedsList data={data} />
           </aside>
           <main>
-            <Contents originalList={data} />
+            <Contents data={data} />
           </main>
         </div>
       </>

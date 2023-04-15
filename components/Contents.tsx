@@ -1,10 +1,13 @@
-import { Entry } from "../types/types.ts";
-import { between, since } from "https://deno.land/x/tims@1.0.0/mod.ts";
+import { Entry, FeedsState } from "../types/types.ts";
+import { since } from "https://deno.land/x/tims@1.0.0/mod.ts";
 import CustomShare from "../islands/CustomShare.tsx";
 import CopyLink from "../islands/CopyLink.tsx";
 
-export const Contents = (props: { originalList: Entry[] }) => {
-  const list = props.originalList;
+export const Contents = (props: { data: FeedsState }) => {
+  let list = props.data.feeds;
+  if (props.data.filtered) {
+    list = list.filter((x: Entry) => (x.siteurl === props.data.filtered));
+  }
 
   const sinceCreated = (date: Date): string => {
     return since(Date.parse(date.toString())).split(",")[0];

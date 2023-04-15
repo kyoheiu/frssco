@@ -1,9 +1,8 @@
-import { Entry } from "../types/types.ts";
-import { useState } from "https://esm.sh/preact@10.13.1/hooks";
+import { Entry, FeedsState } from "../types/types.ts";
 
-export default function FeedsList(props: { data: Entry[] }) {
+export default function FeedsList(props: { data: FeedsState }) {
   const sites: Map<string, string> = new Map();
-  props.data.forEach((entry: Entry) => {
+  props.data.feeds.forEach((entry: Entry) => {
     sites.set(entry.sitetitle, entry.siteurl);
   });
 
