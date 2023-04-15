@@ -63,13 +63,13 @@ header {
     margin-right: 20px;
 }
 
-.close-button {
-    text-align: right;
-    padding: 5px;
-}
-
 .menu-button {
-    padding: 5px;
+    width: 50%;
+    margin: auto;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 @media screen and (min-width: 800px) {
