@@ -1,13 +1,10 @@
 FROM denoland/deno:latest
 
-ARG GIT_REVISION
-ENV DENO_DEPLOYMENT_ID=${GIT_REVISION}
-
 WORKDIR /app
 
 COPY . .
 RUN deno cache main.ts --import-map=import_map.json
 
-EXPOSE 8000
+EXPOSE 8080
 
 CMD ["run", "-A", "--unstable", "main.ts"]
