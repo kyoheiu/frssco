@@ -17,11 +17,15 @@ const compareUpdated = (a: Entry, b: Entry): number => {
 
 const Login = () => {
   return (
-    <form method="post" action="/api/login">
-      <input type="text" name="username" />
-      <input type="password" name="password" />
-      <button type="submit">Submit</button>
-    </form>
+    <div className="login-form">
+      <form method="post" action="/api/login">
+        <input type="text" name="username" placeholder="USERNAME" />
+        <input type="password" name="password" placeholder="PASSWORD" />
+        <p>
+          <button type="submit">Log in</button>
+        </p>
+      </form>
+    </div>
   );
 };
 
