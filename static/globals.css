@@ -25,7 +25,6 @@ button {
 
 input {
     width: 90%;
-    border: 2px solid #ccc;
     border-radius: 5px;
 }
 
@@ -50,6 +49,8 @@ header {
 .logo-container img {
     flex: 4;
     padding: 5px;
+    max-width: 50%;
+    object-fit: cover;
 }
 
 .header-buttons {
@@ -187,4 +188,10 @@ aside {
     text-overflow: ellipsis;
     overflow: hidden;
     margin-left: 10px;
+}
+
+.login-form {
+    text-align: center;
+    margin: 50px auto;
+    width: 60%;
 }
