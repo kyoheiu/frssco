@@ -1,13 +1,26 @@
 # frssco
 
-A self-hostable RSS aggregator.
+A dead-simple self-hostable RSS aggregator written in Deno.
 
 ## Deploy
 
-1. Add `./islands/CustomShare.tsx` to make your own sharing work.
+1. `git clone` this repo.
+
+2. Add `/feed.txt`, `/.env` and `./islands/CustomShare.tsx`.
+
+```
+# feed.txt (Lines prefixed with # are ignored)
+https://news.itsfoss.com/latest/rss/
+...
+```
+
+```
+USERNAME=user_name
+PASSWORD=password
+```
 
 ```ts
-// example
+// Customshare.tsx
 
 import IconSend from "https://deno.land/x/tabler_icons_tsx@0.0.3/tsx/send.tsx";
 
@@ -34,25 +47,11 @@ export default function CustomShare(props: { target: string }) {
 }
 ```
 
-2.
+3.
 
 ```
-git clone https://github.com/kyoheiu/frssco
 sudo docker run -it -v ./feed.txt:/app/feed.txt -p 8080:8080 $(sudo docker build -q .)
 curl -X POST http://localhost:8080/api/refresh # needed to update feed list
 ```
 
-And the app will start listening on port 8080.
-
-## Dev
-
-1. Add `./islands/CustomShare.tsx`.
-
-2.
-
-```
-git clone https://github.com/kyoheiu/frssco
-deno task start
-```
-
-And the app will start listening on port 8080.
+The app will start listening on port 8080.
