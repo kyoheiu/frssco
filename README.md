@@ -2,6 +2,8 @@
 
 A dead-simple self-hostable RSS aggregator written in Deno.
 
+![ss1.png](/screenshots/ss1.png)
+
 ## Deploy
 
 1. `git clone` this repo.
