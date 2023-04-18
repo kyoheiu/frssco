@@ -1,7 +1,8 @@
 body {
     margin: auto;
-    background-color: #5ac3b0;
-    font-family: san-serif;
+    color: #eee;
+    background-color: #444;
+    font-family: monospace;
 }
 
 @media screen and (max-width: 800px) {
@@ -16,8 +17,8 @@ a {
 }
 
 button {
-    color: #666;
-    background-color: #f7cd46;
+    color: #000;
+    background-color: #0cf;
     border: none;
     border-radius: 5px;
 }
@@ -41,7 +42,7 @@ input {
 header {
     display: flex;
     justify-content: space-between;
-    background-color: #f7cd46;
+    background-color: #444;
     position: sticky;
     top: 0;
 }
@@ -98,11 +99,10 @@ aside {
 }
 
 .side-list {
-    font-size: 0.9em;
     line-height: 2;
     text-align: left;
     padding: 5px;
-    background-color: #fff;
+    background-color: #222;
 }
 
 .feed-title {
@@ -120,13 +120,13 @@ aside {
 
 .entry-block {
     margin: 0 auto 20px auto;
-    background-color: #fff;
+    background-color: #222;
     padding: 15px;
     border-radius: 10px;
 }
 
 .entry-title {
-    font-weight: bolder;
+    font-size: 1.5em;
     flex: 6;
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -154,7 +154,7 @@ aside {
 }
 
 .entry-divider {
-    color: #fc4a1a;
+    color: #0cf;
 }
 
 .entry-description {
@@ -177,11 +177,10 @@ aside {
 
 .entry-text {
     flex: 3;
-    font-size: 0.8em;
     max-width: 50vw;
     height: 4em;
     line-height: 1.3em;
-    color: #333;
+    color: #ccc;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
