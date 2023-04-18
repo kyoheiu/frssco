@@ -2,7 +2,7 @@
 
 A dead-simple self-hostable RSS aggregator written in Deno.
 
-![ss1.png](/screenshots/ss1.png)
+![ss1.png](screenshots/ss1.png)
 
 ## Deploy
 
