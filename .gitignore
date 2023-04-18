@@ -1,3 +1,4 @@
 feed.*
 *.db
 /islands/CustomShare.tsx
+.env
