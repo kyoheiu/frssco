@@ -3,6 +3,7 @@ import { Feedback, FeedsState } from "../types/types.ts";
 import IconRefresh from "https://deno.land/x/tabler_icons_tsx@0.0.3/tsx/refresh.tsx";
 import IconRefreshDot from "https://deno.land/x/tabler_icons_tsx@0.0.3/tsx/refresh-dot.tsx";
 import IconRefreshAlert from "https://deno.land/x/tabler_icons_tsx@0.0.3/tsx/refresh-alert.tsx";
+import IconLogout from "https://deno.land/x/tabler_icons_tsx@0.0.3/tsx/logout.tsx";
 
 export default function Header() {
   const [loading, setLoading] = useState(Feedback.Init);
@@ -39,11 +40,12 @@ export default function Header() {
         </div>
         <div className="header-buttons">
           <button onClick={refresh}>
-            Refresh
+            <RefreshButton />
           </button>
+          &nbsp;
           <a href="/logout">
-            <button onClick={refresh}>
-              Log out
+            <button>
+              <IconLogout />
             </button>
           </a>
         </div>
