@@ -6,24 +6,34 @@ import { DOMParser } from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts
 import { Html5Entities } from "https://deno.land/x/html_entities@v1.0/mod.js";
 import { Handlers } from "https://deno.land/x/fresh@1.1.5/server.ts";
 
-const CREATE = "CREATE TABLE feeds (id integer not null, sitetitle TEXT not null, siteurl TEXT not null, title TEXT not null, link TEXT not null, date TEXT not null, cover TEXT, text TEXT not null)";
+const CREATE =
+  "CREATE TABLE feeds (id integer not null, sitetitle TEXT not null, siteurl TEXT not null, title TEXT not null, link TEXT not null, date TEXT not null, cover TEXT, text TEXT not null)";
 
 const asContentElement = (feed: Feed): Entry[] => {
-  return feed.entries.map((x: FeedEntry) => {
-    const updated = x.published ? x.published: (x.updated? x.updated: new Date("1900"));
-    const desc = parseDescription(x);
+  if (feed && Object.hasOwn(feed, "entries")) {
+    return feed.entries.map((x: FeedEntry) => {
+      const updated = x.published
+        ? x.published
+        : (x.updated ? x.updated : new Date("1900"));
+      const desc = parseDescription(x);
 
-    const link = x.id ? (x.id.startsWith("http") ? x.id : x.links[0].href as string) : "";
+      const link = x.id
+        ? (x.id.startsWith("http") ? x.id : x.links[0].href as string)
+        : "";
 
-    return {
-      sitetitle: feed.title.value ?? "",
-      siteurl: feed.id,
-      title: x.title ? x.title.value ?? "" : "",
-      link: link,
-      date: updated,
-      cover: desc.cover,
-      text: desc.text
-  };});
+      return {
+        sitetitle: feed.title.value ?? "",
+        siteurl: feed.id,
+        title: x.title ? x.title.value ?? "" : "",
+        link: link,
+        date: updated,
+        cover: desc.cover,
+        text: desc.text,
+      };
+    });
+  } else {
+    return [];
+  }
 };
 
 const parseDescription = (entry: FeedEntry): ParsedDescription => {
@@ -31,7 +41,7 @@ const parseDescription = (entry: FeedEntry): ParsedDescription => {
   const content = entry.content?.value;
 
   if (!desc) {
-    return {cover: "", text: ""};
+    return { cover: "", text: "" };
   }
   const document = new DOMParser().parseFromString(
     desc,
@@ -39,14 +49,19 @@ const parseDescription = (entry: FeedEntry): ParsedDescription => {
   );
 
   if (!document) {
-    return {cover: "", text: ""};
+    return { cover: "", text: "" };
   }
 
-  let cover: string | null = document.querySelector("img")?.getAttribute("src") ?? "";
+  let cover: string | null =
+    document.querySelector("img")?.getAttribute("src") ?? "";
   if (cover === "") {
-    const content_document = new DOMParser().parseFromString(content ?? "", "text/html");
+    const content_document = new DOMParser().parseFromString(
+      content ?? "",
+      "text/html",
+    );
     if (content_document) {
-    cover = content_document.querySelector("img")?.getAttribute("src") ?? null;
+      cover = content_document.querySelector("img")?.getAttribute("src") ??
+        null;
     }
   }
   const text = document.textContent;
@@ -90,22 +105,34 @@ export const handler: Handlers = {
         x.status === "fulfilled"
       ) as PromiseFulfilledResult<Feed>[]).map((x) => x.value);
 
-    const entryList = result.map((x: Feed) => {return asContentElement(x)}).flat().filter((x: Entry) => !(x.date > new Date()));
+    const entryList = result.map((x: Feed) => {
+      return asContentElement(x);
+    }).flat().filter((x: Entry) => !(x.date > new Date()));
 
     for (let i = 1; i < entryList.length; i++) {
-      const e =entryList[i];
-        if (!e) {
-          continue;
-        } else {
-          db.exec("INSERT INTO feeds (id, sitetitle, siteurl, title, link, date, cover, text) values(?, ?, ?, ?, ?, ?, ?, ?)", i, e.sitetitle, e.siteurl, e.title, e.link, e.date, e.cover, e.text);
-        }
+      const e = entryList[i];
+      if (!e) {
+        continue;
+      } else {
+        db.exec(
+          "INSERT INTO feeds (id, sitetitle, siteurl, title, link, date, cover, text) values(?, ?, ?, ?, ?, ?, ?, ?)",
+          i,
+          e.sitetitle,
+          e.siteurl,
+          e.title,
+          e.link,
+          e.date,
+          e.cover,
+          e.text,
+        );
+      }
     }
 
     db.close();
     console.log("Stored list to database.");
 
     return new Response("OK", {
-      status: 200
+      status: 200,
     });
-  }
+  },
 };
