@@ -21,8 +21,8 @@ USERNAME=user_name
 PASSWORD=password
 ```
 
-```ts
-// Customshare.tsx
+```jsx
+// CustomShare.tsx
 
 import IconSend from "https://deno.land/x/tabler_icons_tsx@0.0.3/tsx/send.tsx";
 
@@ -49,11 +49,10 @@ export default function CustomShare(props: { target: string }) {
 }
 ```
 
-3.
+Then,
 
 ```
-sudo docker run -it -v ./feed.txt:/app/feed.txt -p 8080:8080 $(sudo docker build -q .)
-curl -X POST http://localhost:8080/api/refresh # needed to update feed list
+sudo docker run -d -v ./feed.txt:/app/feed.txt -p 8080:8080 $(sudo docker build -q .)
 ```
 
 The app will start listening on port 8080.
