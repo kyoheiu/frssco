@@ -39,8 +39,13 @@ export default function Header() {
         </div>
         <div className="header-buttons">
           <button onClick={refresh}>
-            <RefreshButton />
+            Refresh
           </button>
+          <a href="/logout">
+            <button onClick={refresh}>
+              Log out
+            </button>
+          </a>
         </div>
       </header>
     </>
