@@ -5,6 +5,7 @@ import { Contents } from "../components/Contents.tsx";
 import Header from "../islands/Header.tsx";
 import { Database } from "https://deno.land/x/sqlite3@0.9.1/mod.ts";
 import Menu from "../islands/Menu.tsx";
+import { getCookies } from "std/http/cookie.ts";
 
 const compareUpdated = (a: Entry, b: Entry): number => {
   if (b.date > a.date) {
@@ -14,8 +15,22 @@ const compareUpdated = (a: Entry, b: Entry): number => {
   }
 };
 
+const Login = () => {
+  return (
+    <form method="post" action="/api/login">
+      <input type="text" name="username" />
+      <input type="password" name="password" />
+      <button type="submit">Submit</button>
+    </form>
+  );
+};
+
 export const handler: Handlers<FeedsState> = {
   GET(req, ctx) {
+    const cookies = getCookies(req.headers);
+    if (cookies.auth !== "bar") {
+      return ctx.render!({ feeds: [], loggedIn: false });
+    }
     const url = new URL(req.url);
     const q = url.searchParams.get("url");
 
@@ -33,16 +48,16 @@ export const handler: Handlers<FeedsState> = {
     result.sort(compareUpdated);
 
     if (q) {
-      return ctx.render({ feeds: result, filtered: q });
+      return ctx.render({ feeds: result, filtered: q, loggedIn: true });
     } else {
-      return ctx.render({ feeds: result });
+      return ctx.render({ feeds: result, loggedIn: true });
     }
   },
 };
 
 export default function Top({ data }: PageProps<FeedsState | null>) {
-  if (!data) {
-    return <h1>Feeds not found.</h1>;
+  if (!data || !data.loggedIn) {
+    return <Login />;
   } else {
     return (
       <>
