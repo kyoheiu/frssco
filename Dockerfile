@@ -1,4 +1,4 @@
-FROM denoland/deno:latest
+FROM denoland/deno:debian-1.32.5
 
 WORKDIR /app
 
