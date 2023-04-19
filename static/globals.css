@@ -21,6 +21,7 @@ button {
     background-color: #0cf;
     border: none;
     border-radius: 5px;
+    line-height: 0;
 }
 
 button:active {
