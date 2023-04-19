@@ -30,7 +30,7 @@ const Login = () => {
 };
 
 export const handler: Handlers<FeedsState> = {
-  GET(req, ctx) {
+  async GET(req, ctx) {
     const cookies = getCookies(req.headers);
     if (cookies.auth !== "bar") {
       return ctx.render!({ feeds: [], loggedIn: false });
@@ -38,6 +38,11 @@ export const handler: Handlers<FeedsState> = {
     const url = new URL(req.url);
     const q = url.searchParams.get("url");
 
+    try {
+      await Deno.lstat("test.db");
+    } catch (_err) {
+      return ctx.render({ feeds: [], loggedIn: true });
+    }
     const db = new Database("test.db");
     const stored = db.prepare("SELECT * FROM feeds").all<
       Record<string, Entry>
