@@ -6,6 +6,7 @@ import Header from "../islands/Header.tsx";
 import { Database } from "https://deno.land/x/sqlite3@0.9.1/mod.ts";
 import Menu from "../islands/Menu.tsx";
 import { getCookies } from "std/http/cookie.ts";
+import IconLogin from "https://deno.land/x/tabler_icons_tsx@0.0.3/tsx/login.tsx";
 
 const compareUpdated = (a: Entry, b: Entry): number => {
   if (b.date > a.date) {
@@ -22,7 +23,9 @@ const Login = () => {
         <input type="text" name="username" placeholder="USERNAME" />
         <input type="password" name="password" placeholder="PASSWORD" />
         <p>
-          <button type="submit">Log in</button>
+          <button type="submit">
+            <IconLogin />
+          </button>
         </p>
       </form>
     </div>
