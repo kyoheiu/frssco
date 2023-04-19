@@ -24,6 +24,7 @@ A dead-simple self-hostable RSS aggregator written in Deno.
 2. Add `/feed.txt`, `/.env` and `./islands/CustomShare.tsx`.
 
 3. `sudo docker run -d -v ./feed.txt:/app/feed.txt -p 8080:8080 $(sudo docker build -q .)`
+   You may need to remove `deno.lock` from the root.
 
 ```
 # feed.txt (Lines prefixed with # are ignored)
