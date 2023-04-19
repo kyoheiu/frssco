@@ -32,7 +32,7 @@ const Login = () => {
 export const handler: Handlers<FeedsState> = {
   async GET(req, ctx) {
     const cookies = getCookies(req.headers);
-    if (cookies.auth !== "bar") {
+    if (cookies.auth !== "frssco_logged_in") {
       return ctx.render!({ feeds: [], loggedIn: false });
     }
     const url = new URL(req.url);

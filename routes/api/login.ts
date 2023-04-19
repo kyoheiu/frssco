@@ -14,9 +14,9 @@ export const handler: Handlers = {
     ) {
       setCookie(headers, {
         name: "auth",
-        value: "bar",
-        maxAge: 120,
-        sameSite: "Lax",
+        value: "frssco_logged_in",
+        maxAge: 20000,
+        sameSite: "Strict",
         domain: url.hostname,
         path: "/",
         secure: true,
