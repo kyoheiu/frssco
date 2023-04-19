@@ -1,6 +1,6 @@
 import { Handlers } from "$fresh/server.ts";
 import { setCookie } from "std/http/cookie.ts";
-import { load } from "std/dotenv/mod.ts";
+import "std/dotenv/load.ts";
 
 export const handler: Handlers = {
   async POST(req) {
@@ -8,10 +8,9 @@ export const handler: Handlers = {
     const form = await req.formData();
     const headers = new Headers();
 
-    const configData = await load();
     if (
-      form.get("username") === configData["USERNAME"] &&
-      form.get("password") === configData["PASSWORD"]
+      form.get("username") === Deno.env.get("USERNAME") &&
+      form.get("password") === Deno.env.get("PASSWORD")
     ) {
       setCookie(headers, {
         name: "auth",
