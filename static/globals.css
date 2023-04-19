@@ -23,6 +23,10 @@ button {
     border-radius: 5px;
 }
 
+button:active {
+    background-color: #5d8aa8;
+}
+
 input {
     width: 90%;
     border-radius: 5px;
@@ -194,4 +198,10 @@ aside {
     text-align: center;
     margin: 50px auto;
     width: 60%;
+}
+
+#toast-container>div {
+    opacity: 1 !important;
+    border: none !important;
+    box-shadow: none !important;
 }
