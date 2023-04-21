@@ -9,16 +9,14 @@ export default function FeedsList(props: { data: FeedsState }) {
   return (
     <>
       <div className="side-list">
-        <form action="/api/append">
-          <input
-            type="url"
-            name="url"
-            placeholder="Add feed"
-          />
-        </form>
+        <div>
+          <a href="/edit">
+            * Edit source
+          </a>
+        </div>
         <div>
           <a href="/">
-            ALL
+            * ALL
           </a>
         </div>
         {[...sites].map((kv) => {
