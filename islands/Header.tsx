@@ -32,24 +32,26 @@ export default function Header() {
 
   return (
     <>
-      <header>
-        <div className="logo-container">
-          <a href="/">
-            <img src="/logo.png" />
-          </a>
-        </div>
-        <div className="header-buttons">
-          <button onClick={refresh}>
-            <RefreshButton />
-          </button>
-          &nbsp;
-          <a href="/logout">
-            <button>
-              <IconLogout />
+      <div className="header">
+        <header>
+          <div className="logo-container">
+            <a href="/">
+              <img src="/logo.png" />
+            </a>
+          </div>
+          <div className="header-buttons">
+            <button onClick={refresh}>
+              <RefreshButton />
             </button>
-          </a>
-        </div>
-      </header>
+            &nbsp;
+            <a href="/logout">
+              <button>
+                <IconLogout />
+              </button>
+            </a>
+          </div>
+        </header>
+      </div>
     </>
   );
 }
