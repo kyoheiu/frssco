@@ -17,7 +17,7 @@ a {
 }
 
 button {
-    color: #000;
+    color: #222;
     background-color: #0cf;
     border: none;
     border-radius: 5px;
@@ -43,17 +43,20 @@ input {
     }
 }
 
-header {
-    display: flex;
-    justify-content: space-between;
-    background-color: #444;
+.header {
+    margin: 10px 20px 0 10px;
     position: sticky;
     top: 0;
 }
 
+header {
+    display: flex;
+    justify-content: space-between;
+    background-color: #444;
+}
+
 .logo-container img {
     flex: 4;
-    padding: 5px;
     max-width: 50%;
     object-fit: cover;
 }
@@ -197,12 +200,28 @@ aside {
 
 .login-form {
     text-align: center;
-    margin: 50px auto;
-    width: 60%;
+    margin: auto;
+    width: 80%;
 }
 
 #toast-container>div {
     opacity: 1 !important;
     border: none !important;
     box-shadow: none !important;
+}
+
+.edit-textarea-wrapper {
+    text-align: center;
+    margin: 50px auto;
+}
+
+.edit-textarea {
+    width: 80%;
+    height: 80%;
+    max-height: 80%;
+    resize: none;
+}
+
+.edit-button {
+    width: 30%;
 }
