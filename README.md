@@ -1,21 +1,19 @@
 # frssco
 
-A dead-simple self-hostable RSS aggregator written in Deno.
+A dead-simple self-hostable RSS aggregator written in Deno Fresh.
 
 ![ss1.png](screenshots/ss1.png)
 
 ## Features
 
-- database-less (sqlite inside docker container)
-- built-in cookie auth
-- custom sharing button
-- manage feed list as a plain text
-- add feed on the client side
-- (But you cannot delete feed. Just update `feed.txt` on your server)
-- No automatically aggreagation. To aggregate all the feeds, press the update
-  button on the top-right, or
-  `curl -X POST https://{YOUR_SITE_BASE_URL}/api/refresh`. Setting `cron` on
-  your server to post http request would be enough as well.
+- Manage and edit feed list as a plain text.
+- No database (sqlite inside the docker container).
+- No import of full article content.
+- No automatic aggreagation. To aggregate all the feeds, press the update button
+  on the top-right, or `curl -X POST https://{YOUR_SITE_BASE_URL}/api/refresh`.
+  Setting `cron` on your server to post http request would be enough as well.
+- Built-in cookie auth.
+- Custom sharing button.
 
 ## Deploy
 
