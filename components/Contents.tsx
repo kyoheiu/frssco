@@ -47,6 +47,10 @@ export const Contents = (props: { data: FeedsState }) => {
                   <div className="entry-thumbnail">
                     <img
                       src={x.cover ? x.cover : "/alt.png"}
+                      onError={({ currentTarget }) => {
+                        currentTarget.onerror = null;
+                        currentTarget.src = "/alt.png";
+                      }}
                     />
                   </div>
                   <div className="entry-text">
