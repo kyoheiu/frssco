@@ -4,6 +4,11 @@ export interface FeedsState {
   loggedIn: boolean;
 }
 
+export interface EditState {
+  source: string,
+  loggedIn: boolean
+}
+
 export interface ParsedDescription {
   cover: string | null;
   text: string;
