@@ -1,4 +1,4 @@
-import { asset, Head } from "$fresh/runtime.ts";
+import { Head } from "$fresh/runtime.ts";
 import { AppProps } from "$fresh/src/server/types.ts";
 
 export default function App({ Component }: AppProps) {
