@@ -90,3 +90,7 @@ export default function CustomShare(props: { target: string }) {
 ## Why
 
 I just wanted to add custom sharing feature to this kind of app.
+
+## Report bug / Request features / Contribute
+This repository is maintained on [https://git.sr.ht/~kyoheiu/frssco](https://git.sr.ht/~kyoheiu/frssco).  
+Contact me via email: ~kyoheiu/frssco@lists.sr.ht
