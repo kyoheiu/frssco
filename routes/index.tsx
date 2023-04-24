@@ -19,6 +19,9 @@ const compareUpdated = (a: Entry, b: Entry): number => {
 const Login = () => {
   return (
     <div className="login-form">
+      <p>
+        <img src="logo.png" />
+      </p>
       <form method="post" action="/api/login">
         <input type="text" name="username" placeholder="USERNAME" />
         <input type="password" name="password" placeholder="PASSWORD" />

@@ -200,8 +200,8 @@ aside {
 
 .login-form {
     text-align: center;
-    margin: auto;
-    width: 80%;
+    margin: 40px auto 0 auto;
+    width: 50%;
 }
 
 #toast-container>div {
