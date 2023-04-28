@@ -200,7 +200,7 @@ aside {
 
 .login-form {
     text-align: center;
-    margin: 40px auto 0 auto;
+    margin: 40px auto 0 auto !important;
     width: 50%;
 }
 
